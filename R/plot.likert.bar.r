@@ -316,7 +316,7 @@ likert.bar.plot <- function(l,
             }
             lpercentneutral <- results[results$variable == center.label,]
             if(nrow(lpercentneutral) > 0) {
-                p <- p + ggrepel::geom_text_repel(data=lpercentneutral, 
+                p <- p + geom_text(data=lpercentneutral, 
                                    aes(x=Item, y=0, 
                                     label=paste0(prettyNum(abs(value * 2), digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')),
                                    size=text.size, color=text.color)
