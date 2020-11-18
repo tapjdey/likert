@@ -136,24 +136,24 @@ likert.bar.plot <- function(l,
         }
         
         if(plot.percent.low) {
-            p <- p + ggrepel::geom_text_repel(data=lsum, y=ymin, aes(x=Group, 
+            p <- p + ggrepel::geom_text_repel(direction = 'x',data=lsum, y=ymin, aes(x=Group, 
                                label=paste0(prettyNum(low, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%'), 
                                group=Item), 
                                size=text.size, hjust=1, color=text.color)
         }
         if(plot.percent.high) {
-            p <- p + ggrepel::geom_text_repel(data=lsum, aes(x=Group, y=100, 
+            p <- p + ggrepel::geom_text_repel(direction = 'x',data=lsum, aes(x=Group, y=100, 
                                label=paste0(prettyNum(high, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%'), 
                                group=Item), size=text.size, hjust=-.2, color=text.color)            
         }
         if(plot.percent.neutral & l$nlevels %% 2 == 1 & include.center) {
             if(centered) {
-                p <- p + ggrepel::geom_text_repel(data=lsum, y=0, aes(x=Group, group=Item,
+                p <- p + ggrepel::geom_text_repel(direction = 'x',data=lsum, y=0, aes(x=Group, group=Item,
                                    label=paste0(prettyNum(neutral, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')),
                                    size=text.size, hjust=.5, color=text.color)
             } else {
                 lsum$y <- lsum$low + (lsum$neutral/2)
-                p <- p + ggrepel::geom_text_repel(data=lsum, aes(x=Group, y=y, group=Item,
+                p <- p + ggrepel::geom_text_repel(direction = 'x',data=lsum, aes(x=Group, y=y, group=Item,
                                    label=paste0(prettyNum(neutral, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')),
                                    size=text.size, hjust=.5, color=text.color)              
             }
@@ -162,7 +162,7 @@ likert.bar.plot <- function(l,
             #warning('plot.percents is not currenlty supported for grouped analysis.')
             lpercentpos <- ddply(results[results$value > 0,], .(Group, Item), transform,
                                  pos = cumsum(value) - 0.5 * value)
-            p <- p + ggrepel::geom_text_repel(data = lpercentpos, 
+            p <- p + ggrepel::geom_text_repel(direction = 'x',data = lpercentpos, 
                                aes(x = Group, y = pos, 
                                 label = paste0(prettyNum(value, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%'),
                                group = Item), size = text.size)
@@ -176,7 +176,7 @@ likert.bar.plot <- function(l,
                           transform,
                           pos = cumsum(value) - 0.5 * value)
                 lpercentneg$pos <- lpercentneg$pos * -1
-                p <- p + ggrepel::geom_text_repel(data = lpercentneg,
+                p <- p + ggrepel::geom_text_repel(direction = 'x',data = lpercentneg,
                                    aes(x = Group, y = pos, 
                                    label = paste0(prettyNum(abs(value), digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')),
                                    size = text.size)
@@ -266,26 +266,26 @@ likert.bar.plot <- function(l,
                               drop=FALSE)
         }
         if(plot.percent.low) {
-            p <- p + ggrepel::geom_text_repel(data=lsum, y=ymin, aes(x=Item, 
+            p <- p + ggrepel::geom_text_repel(direction = 'x',data=lsum, y=ymin, aes(x=Item, 
                                 label=paste0(prettyNum(low, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')), 
                                 size=text.size, hjust=1, color=text.color)
         }
         if(plot.percent.high) {
-            p <- p + ggrepel::geom_text_repel(data=lsum, y=100, aes(x=Item,
+            p <- p + ggrepel::geom_text_repel(direction = 'x',data=lsum, y=100, aes(x=Item,
                             label=paste0(prettyNum(high, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')), 
                             size=text.size, hjust=-.2, color=text.color)
         }
         if(plot.percent.neutral & l$nlevels %% 2 == 1 & include.center & !plot.percents) {
             if(centered) {
                 p <- p +
-                    ggrepel::geom_text_repel(data=lsum, y=0, 
+                    ggrepel::geom_text_repel(direction = 'x',data=lsum, y=0, 
                               aes(x=Item, 
                               label=paste0(prettyNum(neutral, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')),
                               size=text.size, hjust=.5, color=text.color)
             } else {
                 lsum$y <- lsum$low + (lsum$neutral/2)
                 p <- p +
-                    ggrepel::geom_text_repel(data=lsum,
+                    ggrepel::geom_text_repel(direction = 'x',data=lsum,
                               aes(x=Item, y=y, 
                               label=paste0(prettyNum(neutral, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')),
                               size=text.size, hjust=.5, color=text.color)               
@@ -298,7 +298,7 @@ likert.bar.plot <- function(l,
             }
             lpercentpos <- ddply(results[results$value > 0,], .(Item), transform, 
                                  pos = cumsum(value) - 0.5*value)
-            p <- p + ggrepel::geom_text_repel(data=lpercentpos[lpercentpos$variable != center.label,], 
+            p <- p + ggrepel::geom_text_repel(direction = 'x',data=lpercentpos[lpercentpos$variable != center.label,], 
                                aes(x=Item, y=pos, 
                         label=paste0(prettyNum(value, digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')),
                         size=text.size, color=text.color)
@@ -309,7 +309,7 @@ likert.bar.plot <- function(l,
                 lpercentneg <- ddply(lpercentneg, .(Item), transform, 
                                      pos = cumsum(value) - 0.5*value)   
                 lpercentneg$pos <- lpercentneg$pos * -1
-                p <- p + ggrepel::geom_text_repel(data=lpercentneg[lpercentneg$variable != center.label,], 
+                p <- p + ggrepel::geom_text_repel(direction = 'x',data=lpercentneg[lpercentneg$variable != center.label,], 
                                    aes(x=Item, y=pos, 
                             label=paste0(prettyNum(abs(value), digits=digits, drop0trailing=drop0trailing, zero.print=zero.print), '%')),
                             size=text.size, color=text.color)
